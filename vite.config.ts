@@ -7,7 +7,7 @@ export default defineConfig(() => {
     return {
         plugins: [qwikCity(), qwikVite({
             client: {
-                outDir: 'docs/'
+                outDir: 'docs/',
             },
         }), tsconfigPaths()],
         preview: {
