@@ -15,6 +15,8 @@
   background: none;
   border: none;
   cursor: pointer;
+  padding: 10px;
+  z-index: 100;
 }
 
 .settingsDialog {
@@ -22,8 +24,18 @@
   padding: 30px;
 
   &::backdrop {
-    background: linear-gradient(45deg, red, blue);
+    background: rgba(0, 0, 0, 0.65);
     opacity: 0.7;
+  }
+}
+
+.settingsFieldset {
+  margin-bottom: 30px;
+  > div {
+    justify-content: center;
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
   }
 }
 
@@ -32,6 +44,8 @@
   background: none;
   border: none;
   cursor: pointer;
+  color: black;
+  width: auto;
 
   position: absolute;
   top: 0;
@@ -48,12 +62,13 @@
 }
 
 .redButton {
-  @include buttons.button3d(60,100px,700px);
-  font-size: 100px;
-  //color: white;
-  //background-color: red;
-  //font-weight: bold;
-  //text-align: center;
-  //text-decoration: none;
-  //text-shadow: 0 0.1em 0 black;
+  @include buttons.button3d(60, 100px, 700px, 1.1);
+}
+
+.doomsday {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/doomsday.jpeg');
+  background-size: cover;
+  background-position: center;
 }

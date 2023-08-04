@@ -1,5 +1,8 @@
-@mixin button3d($size-viewport: 50, $size-min: 150px, $size-max: 500px, $aspect-ratio: 1, $depth-percentage: 0.9, $depth-ratio:0.3) {
+@mixin button3d($size-viewport: 50, $size-min: 150px, $size-max: 500px, $aspect-ratio: 1.1, $depth-percentage: 0.1, $depth-ratio:0.4, $bg-color: red, $text-color: white) {
+  $font-size-ratio: 0.35;
 
+  background-color: $bg-color;
+  color: $text-color;
   display: block;
   padding: 0;
   position: relative;
@@ -12,30 +15,35 @@
 
   top: 0;
   transition: top .2s ease-in-out, box-shadow .2s ease-in-out, height .2s ease-in-out;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0.075em 0 black;
 
-  &:before {
-    z-index: 0;
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    background: yellow;
-    transition: height .2s ease-in-out;
-    outline: 2px solid yellow;
 
-    @media(orientation: landscape) {
-      top: calc(clamp(#{$size-min * 0.5}, #{($size-viewport * 0.5) + vh }, #{$size-max * 0.5}));
-      height: clamp(#{$size-min*$depth-percentage*$depth-ratio},#{($size-viewport*$depth-percentage*$depth-ratio) + vh},#{$size-max*$depth-percentage*$depth-ratio});
+  //&:before {
+  //  z-index: 0;
+  //  content: '';
+  //  position: absolute;
+  //  left: 0;
+  //  right: 0;
+  //  background: yellow;
+  //  transition: height .2s ease-in-out;
+  //  outline: 2px solid yellow;
+  //
+  //  @media(orientation: landscape) {
+  //    top: calc(clamp(#{$size-min * 0.5}, #{($size-viewport * 0.5) + vh }, #{$size-max * 0.5}));
+  //    height: clamp(#{$size-min*$depth-percentage*$depth-ratio},#{($size-viewport*$depth-percentage*$depth-ratio) + vh},#{$size-max*$depth-percentage*$depth-ratio});
+  //
+  //  }
+  //  @media(orientation: portrait) {
+  //    top: calc(clamp(#{$size-min * 0.5}, #{($size-viewport * 0.5) + vw }, #{$size-max * 0.5}));
+  //    height: clamp(#{$size-min*$depth-percentage*$depth-ratio},#{($size-viewport*$depth-percentage*$depth-ratio) + vw},#{$size-max*$depth-percentage*$depth-ratio});
+  //  }
+  //}
 
-    }
-    @media(orientation: portrait) {
-      top: calc(clamp(#{$size-min * 0.5}, #{($size-viewport * 0.5) + vw }, #{$size-max * 0.5}));
-      height: clamp(#{$size-min*$depth-percentage*$depth-ratio},#{($size-viewport*$depth-percentage*$depth-ratio) + vw},#{$size-max*$depth-percentage*$depth-ratio});
-    }
-  }
-  
 
   @media(orientation: landscape) {
+    font-size: clamp(calc(#{$size-min} * #{$font-size-ratio}), calc(#{$size-viewport + vh} * #{$font-size-ratio}), calc(#{$size-max} * #{$font-size-ratio}));
     margin-bottom: clamp(#{$size-min*$depth-percentage*$depth-ratio},#{($size-viewport*$depth-percentage*$depth-ratio) + vh},#{$size-max*$depth-percentage*$depth-ratio});
     height: clamp(#{$size-min}, #{$size-viewport + vh}, #{$size-max});
     box-shadow: 0 clamp(#{$size-min*$depth-percentage*$depth-ratio}, #{$size-viewport*$depth-percentage*$depth-ratio + vh}, #{$size-max*$depth-percentage*$depth-ratio}) 0 darkred;
@@ -44,13 +52,14 @@
       top: clamp(#{$size-min*$depth-percentage*$depth-ratio * (1-$depth-ratio)},#{$size-viewport*$depth-percentage*$depth-ratio * (1-$depth-ratio) + vh},#{$size-max*$depth-percentage*$depth-ratio * (1-$depth-ratio)});
       box-shadow: 0 clamp(#{($size-min*$depth-percentage*$depth-ratio) - ($size-min*$depth-percentage*$depth-ratio*(1-$depth-ratio))},#{($size-viewport*$depth-percentage*$depth-ratio) - ($size-viewport*$depth-percentage*$depth-ratio*(1-$depth-ratio)) + vh},#{($size-max*$depth-percentage*$depth-ratio) - ($size-max*$depth-percentage*$depth-ratio*(1-$depth-ratio))}) 0 darkred;
 
-      &:before {
-        height: clamp(#{$size-min*$depth-percentage*$depth-ratio*(1-$depth-ratio)},#{($size-viewport*$depth-percentage*$depth-ratio*(1-$depth-ratio) + vh)},#{$size-max*$depth-percentage*$depth-ratio*(1-$depth-ratio)});
-      }
+      //&:before {
+      //  height: clamp(#{$size-min*$depth-percentage*$depth-ratio*(1-$depth-ratio)},#{($size-viewport*$depth-percentage*$depth-ratio*(1-$depth-ratio) + vh)},#{$size-max*$depth-percentage*$depth-ratio*(1-$depth-ratio)});
+      //}
     }
   }
 
   @media(orientation: portrait) {
+    font-size: clamp(calc(#{$size-min} * #{$font-size-ratio}), calc(#{$size-viewport + vw} * #{$font-size-ratio}), calc(#{$size-max} * #{$font-size-ratio}));
     margin-bottom: clamp(#{$size-min*$depth-percentage*$depth-ratio},#{($size-viewport*$depth-percentage*$depth-ratio) + vw},#{$size-max*$depth-percentage*$depth-ratio});
     height: clamp(#{$size-min}, #{$size-viewport + vw}, #{$size-max});
     box-shadow: 0 clamp(#{$size-min*$depth-percentage*$depth-ratio}, #{$size-viewport*$depth-percentage*$depth-ratio + vw}, #{$size-max*$depth-percentage*$depth-ratio}) 0 darkred;
@@ -59,9 +68,9 @@
       top: clamp(#{$size-min*$depth-percentage*$depth-ratio * (1-$depth-ratio)},#{$size-viewport*$depth-percentage*$depth-ratio * (1-$depth-ratio) + vw},#{$size-max*$depth-percentage*$depth-ratio * (1-$depth-ratio)});
       box-shadow: 0 clamp(#{($size-min*$depth-percentage*$depth-ratio) - ($size-min*$depth-percentage*$depth-ratio*(1-$depth-ratio))},#{($size-viewport*$depth-percentage*$depth-ratio) - ($size-viewport*$depth-percentage*$depth-ratio*(1-$depth-ratio)) + vw},#{($size-max*$depth-percentage*$depth-ratio) - ($size-max*$depth-percentage*$depth-ratio*(1-$depth-ratio))}) 0 darkred;
 
-      &:before {
-        height: clamp(#{$size-min*$depth-percentage*$depth-ratio*(1-$depth-ratio)},#{($size-viewport*$depth-percentage*$depth-ratio*(1-$depth-ratio) + vw)},#{$size-max*$depth-percentage*$depth-ratio*(1-$depth-ratio)});
-      }
+      //&:before {
+      //  height: clamp(#{$size-min*$depth-percentage*$depth-ratio*(1-$depth-ratio)},#{($size-viewport*$depth-percentage*$depth-ratio*(1-$depth-ratio) + vw)},#{$size-max*$depth-percentage*$depth-ratio*(1-$depth-ratio)});
+      //}
     }
   }
 
@@ -79,3 +88,4 @@
   //  }
   //}
 }
+
