@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "qwik-project-name",
-  "short_name": "Welcome to Qwik",
+  "name": "doomsday",
+  "short_name": "Doomsday",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#fff",
-  "description": "A Qwik project app."
+  "background_color": "#000",
+  "description": "App with Routing built-in ready to create your app"
 }

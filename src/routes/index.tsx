@@ -1,7 +1,6 @@
 import {$, component$, useSignal, useVisibleTask$} from "@builder.io/qwik";
 import type {DocumentHead} from "@builder.io/qwik-city";
 import styles from './index.module.scss';
-import boomSound from '../../public/audio/boom.mp3'
 
 const AUTODECREMENT_DEFAULT_VALUE = "true";
 const COUNTER_DEFAULT_VALUE = 5;
