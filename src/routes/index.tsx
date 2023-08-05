@@ -137,7 +137,7 @@ export default component$(() => {
                 </div>}
 
                 {isDoomsday.value && <div class={styles.doomsday}>
-                    <audio controls autoPlay>
+                    <audio controls autoPlay style="display:none;">
                         <source src={'/audio/boom.mp3'} type="audio/mpeg"/>
                     </audio>
                     <div class={styles.doomsdayImage}></div>
