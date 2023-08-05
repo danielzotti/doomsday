@@ -1,4 +1,4 @@
-const staticPaths = new Set(["/","/@qwik-city-not-found-paths.js","/@qwik-city-plan.mjs","/@qwik-city-static-paths.js","/docs/@qwik-city-plan-ab51a556.mjs","/entry.ssr.js","/entry.ssr.mjs","/package.json","/sitemap.xml"]);
+const staticPaths = new Set(["/","/@qwik-city-not-found-paths.js","/@qwik-city-plan.mjs","/@qwik-city-static-paths.js","/entry.ssr.js","/entry.ssr.mjs","/package.json","/sitemap.xml"]);
 function isStaticPath(method, url) {
   if (method.toUpperCase() !== 'GET') {
     return false;
