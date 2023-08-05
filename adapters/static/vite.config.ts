@@ -6,8 +6,9 @@ export default extendConfig(baseConfig, () => {
     return {
         build: {
             ssr: true,
-            outDir: 'docs',
-            assetsDir: 'build',
+            // outDir: 'dist',
+            // assetsDir: 'build',
+            // copyPublicDir: true,
             rollupOptions: {
                 input: ["@qwik-city-plan"],
             },
