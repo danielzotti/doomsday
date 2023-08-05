@@ -9,6 +9,7 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: black;
 }
 
 * {
@@ -22,6 +23,7 @@ button {
   background-color: black;
   text-transform: uppercase;
   padding: 10px 20px;
+  cursor: pointer;
 }
 
 input {
