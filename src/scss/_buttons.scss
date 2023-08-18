@@ -1,6 +1,14 @@
-@mixin button3d($size-viewport: 50, $size-min: 150px, $size-max: 500px, $aspect-ratio: 1.1, $depth-percentage: 0.1, $depth-ratio:0.4, $bg-color: red, $text-color: white) {
-  $font-size-ratio: 0.35;
-
+@mixin button3d(
+  $size-viewport: 50,
+  $size-min: 150px,
+  $size-max: 500px,
+  $aspect-ratio: 1.1,
+  $depth-percentage: 0.1,
+  $depth-ratio:0.4,
+  $bg-color: red,
+  $text-color: white,
+  $font-size-ratio: 0.35
+) {
   $bg-color-darker: darken($bg-color, 30%);
 
   background-color: $bg-color;
@@ -11,7 +19,7 @@
   z-index: 2;
   cursor: pointer;
   aspect-ratio: $aspect-ratio;
-  border: 2px solid black;
+  border: 2px solid $bg-color-darker;
   outline: none;
   border-radius: 50%;
 
@@ -19,7 +27,7 @@
   transition: top .2s ease-in-out, box-shadow .2s ease-in-out, height .2s ease-in-out;
   font-weight: bold;
   text-align: center;
-  text-shadow: 0 0.075em 0 black;
+  text-shadow: 0 0.065em 0 $bg-color-darker;
 
   isolation: isolate;
 
