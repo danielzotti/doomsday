@@ -4,8 +4,9 @@ import styles from './index.module.scss';
 
 const AUTODECREMENT_DEFAULT_VALUE = "true";
 const COUNTER_DEFAULT_VALUE = 5;
-const LOCAL_STORAGE_COUNTER_KEY = "doomsday_counter"
-const LOCAL_STORAGE_AUTODECREMENT_KEY = "doomsday_autodecrement"
+const LOCAL_STORAGE_COUNTER_KEY = "doomsday_counter";
+const LOCAL_STORAGE_AUTODECREMENT_KEY = "doomsday_autodecrement";
+// const LOCAL_STORAGE_DATE = "doomsday_date";
 
 export default component$(() => {
     const count = useSignal<number | undefined>();
