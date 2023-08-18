@@ -4,12 +4,14 @@ import styles from './index.module.scss';
 
 const AUTODECREMENT_DEFAULT_VALUE = "true";
 const COUNTER_DEFAULT_VALUE = 5;
-const LOCAL_STORAGE_COUNTER_KEY = "doomsday_counter";
-const LOCAL_STORAGE_AUTODECREMENT_KEY = "doomsday_autodecrement";
+const LOCAL_STORAGE_COUNTER_KEY = "doomsday_counter"
+const LOCAL_STORAGE_COUNTER_START_KEY = "doomsday_counter_start"
+const LOCAL_STORAGE_AUTODECREMENT_KEY = "doomsday_autodecrement"
 // const LOCAL_STORAGE_DATE = "doomsday_date";
 
 export default component$(() => {
     const count = useSignal<number | undefined>();
+    const startCount = useSignal<number | undefined>();
     const isDoomsday = useSignal<boolean>(false);
     const isAutodecrement = useSignal<boolean | undefined>();
     const inputRef = useSignal<HTMLInputElement | undefined>();
@@ -27,7 +29,7 @@ export default component$(() => {
         if (!count.value) {
             count.value = COUNTER_DEFAULT_VALUE;
         }
-        count.value--
+        count.value--;
         if (count.value <= 0) {
             console.log("It's doomsday!")
             isDoomsday.value = true;
@@ -36,6 +38,7 @@ export default component$(() => {
 
     const setInputValue = $((input?: HTMLInputElement) => {
         count.value = input?.value ? input.value as unknown as number : COUNTER_DEFAULT_VALUE;
+        window.localStorage.setItem(LOCAL_STORAGE_COUNTER_START_KEY, count.value.toString())
         isDoomsday.value = false
     })
 
@@ -45,23 +48,35 @@ export default component$(() => {
 
 
     const reset = $(() => {
-        count.value = COUNTER_DEFAULT_VALUE;
-        isAutodecrement.value = Boolean(AUTODECREMENT_DEFAULT_VALUE);
+        const startValue = window.localStorage.getItem(LOCAL_STORAGE_COUNTER_START_KEY);
+        count.value = startValue ? +startValue : COUNTER_DEFAULT_VALUE;
         isDoomsday.value = false;
         closeDialog();
     })
 
 
     useVisibleTask$(() => {
-        const savedCountValue = window.localStorage.getItem(LOCAL_STORAGE_COUNTER_KEY)
+        const startValue = window.localStorage.getItem(LOCAL_STORAGE_COUNTER_START_KEY) || COUNTER_DEFAULT_VALUE;
+        window.localStorage.setItem(LOCAL_STORAGE_COUNTER_START_KEY, startValue.toString())
+
+        const savedCountValue = window.localStorage.getItem(LOCAL_STORAGE_COUNTER_KEY) || startValue;
         const autodecrement = window.localStorage.getItem(LOCAL_STORAGE_AUTODECREMENT_KEY) || AUTODECREMENT_DEFAULT_VALUE;
 
-        count.value = savedCountValue ? +savedCountValue : 5;
+        startCount.value = +startValue;
+        count.value = +savedCountValue;
         isAutodecrement.value = autodecrement === "true";
 
         if (isAutodecrement.value) {
             void decrement()
         }
+    });
+
+    useVisibleTask$(({track}) => {
+        track(() => startCount.value);
+        if (!startCount.value) {
+            return;
+        }
+        window.localStorage.setItem(LOCAL_STORAGE_COUNTER_START_KEY, startCount.value.toString())
     });
 
     useVisibleTask$(({track}) => {
@@ -103,7 +118,7 @@ export default component$(() => {
                         </div>
 
                         <div>
-                            <input type="number" ref={inputRef} value={count.value}/>
+                            <input type="number" min="1" step="1" ref={inputRef} value={startCount.value}/>
                             <button onClick$={() => setInputValue(inputRef.value)}>SET</button>
                         </div>
                     </fieldset>
@@ -113,7 +128,6 @@ export default component$(() => {
                         <br/>
                         <br/>
                         <button onClick$={reset}>Restart!</button>
-                        <p><small>(with default values)</small></p>
                     </div>
                 </div>
             </dialog>
@@ -124,7 +138,11 @@ export default component$(() => {
                 </div>}
 
                 {isDoomsday.value && <div class={styles.doomsday}>
-                    <button onClick$={reset}>Restart <small>(with default values)</small></button>
+                    <audio controls autoPlay style="display:none;">
+                        <source src={'/audio/boom.mp3'} type="audio/mpeg"/>
+                    </audio>
+                    <div class={styles.doomsdayImage}></div>
+                    <button class={styles.doomsdayRestartButton} onClick$={reset}>Restart</button>
                 </div>}
             </div>
 
