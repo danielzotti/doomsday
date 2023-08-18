@@ -6,6 +6,7 @@
   },
   "private": true,
   "scripts": {
+    "build:github-pages": "npm run build.client && npm run build.server",
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
